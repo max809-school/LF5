@@ -2,49 +2,59 @@ import re
 
 
 def getInputs():
-    while True:
-        firstname = input("Vorname: ")
-        if len(firstname) > 0 and firstname.isalpha():
-            break
-        print("Vorname muss mindestens 1 Zeichen lang sein")
+    def promptUntilValid(prompt, validator, error_message):
+        value = input(prompt)
+        if validator(value):
+            return value
+        print(error_message)
+        return promptUntilValid(prompt, validator, error_message)
 
-    while True:
-        lastname = input("Nachname: ")
-        if len(lastname) > 0 and lastname.isalpha():
-            break
-        print("Nachname muss mindestens 1 Zeichen lang sein")
+    firstname = promptUntilValid(
+        "Vorname: ",
+        lambda v: len(v) > 0 and v.isalpha(),
+        "Vorname muss mindestens 1 Zeichen lang sein",
+    )
 
-    while True:
-        street = input("Straße: ")
-        if len(street) > 0:
-            break
-        print("Straße muss mindestens 1 Zeichen lang sein")
+    lastname = promptUntilValid(
+        "Nachname: ",
+        lambda v: len(v) > 0 and v.isalpha(),
+        "Nachname muss mindestens 1 Zeichen lang sein",
+    )
 
-    while True:
-        city = input("Stadt: ")
-        if len(city) > 0 and city.isalpha():
-            break
-        print("Stadt muss mindestens 1 Zeichen lang sein")
+    street = promptUntilValid(
+        "Straße: ",
+        lambda v: len(v) > 0,
+        "Straße muss mindestens 1 Zeichen lang sein",
+    )
 
-    while True:
-        zipCode = input("PLZ: ")
-        if len(zipCode) > 0 and zipCode.isdigit():
-            break
-        print("PLZ muss mindestens 1 Zeichen lang sein und darf nur Zahlen enthalten")
+    city = promptUntilValid(
+        "Stadt: ",
+        lambda v: len(v) > 0 and v.isalpha(),
+        "Stadt muss mindestens 1 Zeichen lang sein",
+    )
 
-    while True:
-        birthdate = input("Geburtsdatum (dd.mm.yyyy): ")
-        if re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", birthdate):
-            break
-        print("Geburtsdatum muss im Format dd.mm.yyyy eingegeben werden")
+    zipCode = promptUntilValid(
+        "PLZ: ",
+        lambda v: len(v) > 0 and v.isdigit(),
+        "PLZ muss mindestens 1 Zeichen lang sein und darf nur Zahlen enthalten",
+    )
 
-    while True:
-        hobbies = input("Hobbies (mindestens 2, getrennt durch Komma): ")
-        hobbies_list = [h.strip() for h in hobbies.split(",") if h.strip()]
-        if len(hobbies_list) >= 2:
-            hobbies = ", ".join(hobbies_list)
-            break
-        print("Bitte geben Sie mindestens 2 Hobbys ein, getrennt durch ein Komma.")
+    birthdate = promptUntilValid(
+        "Geburtsdatum (dd.mm.yyyy): ",
+        lambda v: re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", v) is not None,
+        "Geburtsdatum muss im Format dd.mm.yyyy eingegeben werden",
+    )
+
+    def hobbies_validator(v):
+        return len([h.strip() for h in v.split(",") if h.strip()]) >= 2
+
+    hobbies_raw = promptUntilValid(
+        "Hobbies (mindestens 2, getrennt durch Komma): ",
+        hobbies_validator,
+        "Bitte geben Sie mindestens 2 Hobbys ein, getrennt durch ein Komma.",
+    )
+    hobbies_list = [h.strip() for h in hobbies_raw.split(",") if h.strip()]
+    hobbies = ", ".join(hobbies_list)
 
     return {
         "firstname": firstname,
