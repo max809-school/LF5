@@ -73,4 +73,11 @@ def calcAndPrint():
 
 
 if __name__ == "__main__":
-    calcAndPrint()
+    try:
+        calcAndPrint()
+    except KeyboardInterrupt:
+        print("\n\nEingabe Abgebrochen")
+    except ValueError as e:
+        print(e)
+    except ZeroDivisionError:
+        print("Division durch 0 ist nicht erlaubt")
