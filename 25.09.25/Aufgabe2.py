@@ -18,7 +18,7 @@ schema = {
     "segment2": {
         "start": 501,
         "end": 2_147_483_647,  # Maximaler Wert für ein 32-Bit-Integer
-        "percentage": 5,
+        "percentage": 5.0,
     },
 }
 
