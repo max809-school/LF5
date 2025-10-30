@@ -61,8 +61,10 @@ def main():
             bonus = inputs["last_month_salary"] * 0.15
 
         else:
+            # sonst 10% von letztem Monatslohn
             bonus = inputs["last_month_salary"] * 0.10
     elif inputs["years"] >= 10:
+        # 100% von letztem Monatslohn
         bonus = inputs["last_month_salary"] * 1
 
     if inputs["children_count"] > 0:
