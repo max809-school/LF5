@@ -9,6 +9,7 @@ def getIntInput(prompt_text):
 def main():
     zahl = getIntInput("Gib deine zahl an: ")
 
+    # Bereichsprüfung (Range Check) mit Vergleichsoperatoren (Vergleichskette).
     if 2 <= zahl <= 10:
         print("Eingabe korrekt!")
     elif 20 <= zahl <= 28:

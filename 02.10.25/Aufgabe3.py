@@ -11,13 +11,13 @@ def main():
 
     if zahl > 25_000:
         if zahl <= 50_000:
-            return print(zahl * 0.02)
+            return print(f"{(zahl * 0.02):.2f}")
         elif zahl <= 75_000:
-            return print(zahl * 0.03)
+            return print(f"{(zahl * 0.03):.2f}")
         elif zahl <= 100_000:
-            return print(zahl * 0.04)
+            return print(f"{(zahl * 0.04):.2f}")
         else:
-            return print(zahl * 0.05)
+            return print(f"{(zahl * 0.05):.2f}")
     else:
         return None
 
